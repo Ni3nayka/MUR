@@ -1,3 +1,12 @@
+/*
+ * code write for project:
+ * https://github.com/Ni3nayka/MUR
+ * 
+ * author: Egor Bakay <egor_bakay@inbox.ru> Ni3nayka
+ * write:  February 2022
+ * modify: February 2022
+ */
+
 // LOLIN(WEMOS) D1 R2 & mini
 
 #include "wifi_config.h" // wifi-pass 
@@ -7,39 +16,36 @@
 //#define DEVICE_NAME "test_esp8266" 
 //#define DEVICE_PASSWORD "1234"
 
-#include "I2C_config.h"
-#include <Wire.h>
-
 #define ENABLE_AVOCADO_ESP_WIFI_BOOT
 
 #include <AVOCADO_esp.h>
 
 AVOCADO_esp esp;
 
+#include "I2C_sender.h"
+I2C_sender i2c;
+
 void setup() {
-  Wire.begin(D1, D2); 
-  Wire.setClock(I2C_CLOCK);
+  delay(1000);
   Serial.begin(115200);
-  esp.setup();
+  Serial.println();
+  Serial.println();
+  //esp.setup();
+  i2c.setup();
+  i2c.motor(1,100);
+  i2c.motor(2,-98,150);
+  i2c.servo(1,250);
+  i2c.servo(1,-5);
+  i2c.servo(2,78);
+  Serial.println("----");
+  Serial.println(i2c.sensor(0));
+  Serial.println(i2c.sensor(1));
+  Serial.println(i2c.sensor(2));
+  Serial.println(i2c.sensor(3));
+  Serial.println("end");
 }
 
 void loop() {
-  esp.update();
-  i2c_test();
-}
-
-void i2c_test() {
-  Wire.beginTransmission(I2C_ADRESS); /* Начинаем передачу на адресе 8 */
-  Wire.write("Hello Arduino");  /* Отправляем "hello Arduino" */
-  Wire.endTransmission();    /* прекращаем передачу */
-
-  Wire.requestFrom(I2C_ADRESS, 100); /* запрашиваем и считываем 13 байт с адреса 8 slave устройства */
-  bool flag = 0;
-  while(Wire.available()){
-    char c = Wire.read();
-    Serial.print(c);
-    flag = 1;
-  }
-  if (flag) Serial.println();
-  //delay(1000);
+  //esp.update();
+  //i2c.test();
 }
