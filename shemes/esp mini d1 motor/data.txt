@@ -1,0 +1,5 @@
+esp pins:
+https://alexgyver.ru/lessons/esp8266/
+
+multiplexor:
+https://radioskot.ru/publ/nachinajushhim/multipleksor_skhema_i_ejo_rabota/5-1-0-1374
